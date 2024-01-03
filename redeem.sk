@@ -1,0 +1,111 @@
+on load:
+    set {unredeemed+5y6dG3oP7O} to true
+    set {unredeemed+tRxeiwZ3Jy} to true
+    set {unredeemed+cqJuhSXt} to true
+    if {unredeemed+5y6dG3oP7O} is true:
+        set {unredeemed+5y6dG3oP7O} to false
+        wait 1 seconds
+        if {redeemed+5y6dG3oP7O} is true:
+            set {unredeemed+5y6dG3oP7O} to true
+    else if {unredeemed+tRxeiwZ3Jy} is true:
+        set {unredeemed+tRxeiwZ3Jy} to false
+        wait 1 seconds
+        if {redeemed+tRxeiwZ3Jy} is true:
+            set {unredeemed+tRxeiwZ3Jy} to true
+    else if {redeemed+cqJuhSXt} is true:
+        set {unredeemed+cqJuhSXt} to false
+        wait 1 seconds
+        if {redeemed+cqJuhSXt} is true:
+            set {unredeemed+cqJuhSXt} to true
+
+command /redeem [<text>]:
+    executable by: player
+    permission: minecraft.command.tellraw
+    trigger:
+        if arg 1 is "NOBLELAND-0R87-2MUC-Z0W4-V3EW":
+            if {unredeemed+5y6dG3oP7O} is false:
+                wait 1 seconds
+                execute console command "eco give %player% 20000"
+                wait 1 seconds
+                set {redeemed+5y6dG3oP7O} to true
+                wait 1 seconds
+                set {undo_redeem+5y6dG3oP7O} to false
+                set {unredeemed+5y6dG3oP7O} to true
+            else:
+                send "[ Merch ] Code Used! This code has already been redeemed."
+        else if arg 1 is "NOBLELAND-JXD0-4XUK-UXS7-K01E":
+            execute console command "say Hello, world!"
+
+        else if arg 1 is "special":
+            if {unredeemed+tRxeiwZ3Jy} is false:
+                set {redeemed+tRxeiwZ3Jy} to true
+                execute console command "eco give %player% 2000000"
+                wait 1 seconds
+                set {undo_redeem+tRxeiwZ3Jy} to false
+                set {unredeemed+tRxeiwZ3Jy} to true
+            else:
+                send "[ Merch ] Code Used! This code has already been redeemed."
+
+        else if arg 1 is "NOBLELAND-15GE-43Z7-5914-82V3":
+            if {unredeemed+cqJuhSXt} is false:
+                wait 1 seconds
+                execute console command "skills item give %player% registery-blackbounded+ERank_final-001"
+                wait 1 seconds
+                set {redeemed+cqJuhSXt} to true
+                wait 1 seconds
+                set {undo_redeem+cqJuhSXt} to false
+                set {unredeemed+cqJuhSXt} to true
+            else:
+                send "[ Merch ] Code Used! This code has already been redeemed."
+
+        else:
+            send "[ Error ] Unknown code!"
+
+command /undo-redeem [<text>]:
+    trigger:
+        if arg 1 is "registery-20kC_0R87-2MUC-Z0W4-V3EW":
+            if {undo_redeem+5y6dG3oP7O} is false:
+                set {undo_redeem+5y6dG3oP7O} to true
+                if {undo_redeem+5y6dG3oP7O} is true:
+                    set {redeemed+5y6dG3oP7O} to false
+                    set {undo_redeem+5y6dG3oP7O} to false
+                    set {unredeemed+5y6dG3oP7O} to false
+                    send "complete"
+                else:
+                    send "[ Error ] Unable to undo the redeemption of this code!"
+            else:
+                send "[ Error: 00x12d ]"
+        else if arg 1 is "registery-unknown":
+            send "[ Error C812x1d ] "
+
+        else if arg 1 is "special_registery-2mC_special":
+            if {undo_redeem+tRxeiwZ3Jy} is false:
+                set {undo_redeem+tRxeiwZ3Jy} to true
+                if {undo_redeem+tRxeiwZ3Jy} is true:
+                    set {redeemed+tRxeiwZ3Jy} to false
+                    set {undo_redeem+tRxeiwZ3Jy} to false
+                    set {unredeemed+tRxeiwZ3Jy} to false
+                    send "complete"
+                else:
+                    send "[ Error ] Unable to undo the redeemption of this code!"
+            else:
+                send "[ Error SP217x81d ]"
+        else if arg 1 is "registery-blackbounded_15GE-43Z7-5914-82V3":
+            if {undo_redeem+cqJuhSXt} is false:
+                set {undo_redeem+cqJuhSXt} to true
+                if {undo_redeem+cqJuhSXt} is true:
+                    set {redeemed+cqJuhSXt} to false
+                    set {undo_redeem+cqJuhSXt} to false
+                    set {unredeemed+cqJuhSXt} to false
+                    send "complete"
+                else:
+                    send "[ Error ] Unable to undo the redeemption of this code!"
+            else:
+                send "[ Error SP217x81d ]"
+
+        else:
+            send "[ Error ] Unknown code!"
+
+command /load-redeem [<text>]:
+    trigger:
+        if arg 1 is "NOBLELAND-0R87-2MUC-Z0W4-V3EW":
